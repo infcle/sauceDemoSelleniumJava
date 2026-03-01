@@ -1,0 +1,13 @@
+base:
+  url: ${BASE_URL:https://www.saucedemo.com}
+
+browser: ${BROWSER:chrome}
+
+user:
+  standard: ${USER_STANDARD:standard_user}
+  password: ${USER_PASSWORD:secret_sauce}
+
+checkout:
+  firstName: ${CHECKOUT_FIRST_NAME:Elmer}
+  lastName: ${CHECKOUT_LAST_NAME:Coronel}
+  zipCode: ${CHECKOUT_ZIP_CODE:00000}

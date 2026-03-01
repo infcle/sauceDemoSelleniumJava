@@ -1,6 +1,7 @@
 package com.ecl.saucedemoselleniumjava.tests;
 
 import com.ecl.saucedemoselleniumjava.base.BaseTest;
+import com.ecl.saucedemoselleniumjava.config.TestConfig;
 import com.ecl.saucedemoselleniumjava.model.ProductData;
 import com.ecl.saucedemoselleniumjava.pages.CartPage;
 import com.ecl.saucedemoselleniumjava.pages.CheckoutCompletePage;
@@ -37,14 +38,13 @@ public class PurchaseFlowTest extends BaseTest {
     @Description("Validates cart item data, checkout step one and two, totals consistency, and completion message.")
     public void e2ePurchaseFlow() {
         String productName = "Sauce Labs Backpack";
-        String firstName = "Elmer";
-        String lastName = "Coronel";
-        String zipCode = "00000";
+        String firstName = TestConfig.checkoutFirstName();
+        String lastName = TestConfig.checkoutLastName();
+        String zipCode = TestConfig.checkoutZipCode();
 
         LoginPage loginPage = new LoginPage();
-        ProductPage productPage = loginPage.login("standard_user", "secret_sauce");
-
-        Assert.assertEquals(productPage.getTitle(), "Products", "Products page is not visible.");
+        ProductPage productPage = loginPage.login(TestConfig.username(), TestConfig.password());
+        productPage.shouldBeVisible();
 
         ProductData expectedProduct = productPage.getProductDataByName(productName);
         productPage.addToCartByProductName(productName);

@@ -4,6 +4,7 @@ import com.ecl.saucedemoselleniumjava.base.BasePage;
 import com.ecl.saucedemoselleniumjava.model.ProductData;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
+import org.testng.Assert;
 
 /**
  * Project: sauceDemoSelleniumJava File: ProductPage
@@ -22,6 +23,11 @@ public class ProductPage extends BasePage {
     @Step("Get Products page title")
     public String getTitle() {
         return getText(PRODUCTS_TITLE);
+    }
+
+    @Step("Validate products page is visible")
+    public void shouldBeVisible() {
+        Assert.assertEquals(getTitle(), "Products", "Products page is not visible.");
     }
 
     @Step("Add product to cart: {productName}")

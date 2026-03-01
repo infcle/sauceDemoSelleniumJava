@@ -1,5 +1,6 @@
 package com.ecl.saucedemoselleniumjava.base;
 
+import com.ecl.saucedemoselleniumjava.config.TestConfig;
 import io.qameta.allure.Attachment;
 import io.qameta.allure.testng.AllureTestNg;
 import org.openqa.selenium.OutputType;
@@ -22,7 +23,7 @@ public class BaseTest {
 
     @BeforeMethod
     public void setUp() {
-        DriverManager.initDriver(System.getProperty("browser", "chrome"));
+        DriverManager.initDriver(TestConfig.browser());
     }
 
     @AfterMethod

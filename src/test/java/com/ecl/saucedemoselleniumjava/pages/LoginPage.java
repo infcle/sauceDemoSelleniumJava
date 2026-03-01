@@ -36,10 +36,10 @@ public class LoginPage extends BasePage {
         return this;
     }
 
-    @Step("Click Login and go to Inventory page")
-    public InventoryPage clickLogin() {
+    @Step("Click Login and go to Product page")
+    public ProductPage clickLogin() {
         clickElement(LOGIN_BUTTON);
-        return new InventoryPage();
+        return new ProductPage();
     }
 
     @Step("Login with user: {username}")
@@ -47,12 +47,6 @@ public class LoginPage extends BasePage {
         return openLoginPage()
                 .typeUsername(username)
                 .typePassword(password)
-                .clickLoginAsProductPage();
-    }
-
-    @Step("Click Login and go to Product page")
-    public ProductPage clickLoginAsProductPage() {
-        clickElement(LOGIN_BUTTON);
-        return new ProductPage();
+                .clickLogin();
     }
 }

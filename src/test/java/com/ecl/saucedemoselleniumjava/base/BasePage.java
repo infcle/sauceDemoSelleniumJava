@@ -1,5 +1,6 @@
 package com.ecl.saucedemoselleniumjava.base;
 
+import com.ecl.saucedemoselleniumjava.config.TestConfig;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.JavascriptExecutor;
@@ -22,15 +23,13 @@ public class BasePage {
 
     protected WebDriver driver;
     protected WebDriverWait wait;
-    private static final String BASE_URL = "https://www.saucedemo.com";
-
     public BasePage() {
         this.driver = DriverManager.getDriver();
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
     public void openPath(String path) {
-        driver.get(BASE_URL + path);
+        driver.get(TestConfig.baseUrl() + path);
     }
 
     protected void clickElement(By locator) {

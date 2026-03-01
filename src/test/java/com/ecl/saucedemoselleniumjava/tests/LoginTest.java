@@ -1,6 +1,7 @@
 package com.ecl.saucedemoselleniumjava.tests;
 
 import com.ecl.saucedemoselleniumjava.base.BaseTest;
+import com.ecl.saucedemoselleniumjava.config.TestConfig;
 import com.ecl.saucedemoselleniumjava.pages.LoginPage;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
@@ -25,12 +26,12 @@ public class LoginTest extends BaseTest {
     @Test
     @Story("Valid login")
     @Severity(SeverityLevel.CRITICAL)
-    @Description("Logs in with a valid user and verifies that the inventory page is displayed.")
+    @Description("Logs in with a valid user and verifies that the products page is displayed.")
     public void loginWithValidUser() {
         new LoginPage()
                 .openLoginPage()
-                .typeUsername("standard_user")
-                .typePassword("secret_sauce")
+                .typeUsername(TestConfig.username())
+                .typePassword(TestConfig.password())
                 .clickLogin()
                 .shouldBeVisible();
     }

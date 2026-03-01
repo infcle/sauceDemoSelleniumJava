@@ -14,19 +14,21 @@ UI automation framework for [SauceDemo](https://www.saucedemo.com/) using Java, 
 ```text
 src/test/java/com/ecl/saucedemoselleniumjava
 +-- base
-¦   +-- BasePage.java
-¦   +-- BaseTest.java
-¦   +-- DriverManager.java
+|   +-- BasePage.java
+|   +-- BaseTest.java
+|   +-- DriverManager.java
++-- config
+|   +-- TestConfig.java
 +-- model
-¦   +-- ProductData.java
+|   +-- ProductData.java
 +-- pages
-¦   +-- LoginPage.java
-¦   +-- InventoryPage.java
-¦   +-- ProductPage.java
-¦   +-- CartPage.java
-¦   +-- CheckoutPage.java
-¦   +-- CheckoutOverviewPage.java
-¦   +-- CheckoutCompletePage.java
+|   +-- LoginPage.java
+|   +-- InventoryPage.java
+|   +-- ProductPage.java
+|   +-- CartPage.java
+|   +-- CheckoutPage.java
+|   +-- CheckoutOverviewPage.java
+|   +-- CheckoutCompletePage.java
 +-- tests
     +-- LoginTest.java
     +-- PurchaseFlowTest.java
@@ -37,6 +39,7 @@ src/test/java/com/ecl/saucedemoselleniumjava
 - Multi-browser execution (`chrome`, `firefox`, `edge`, `safari`, `chromium`)
 - Driver lifecycle management with `ThreadLocal<WebDriver>`
 - Browser popup mitigation for password manager interruptions (Chrome/Edge)
+- Centralized test config through YAML + JVM properties (`TestConfig`)
 - Allure integration with:
   - test metadata (`@Epic`, `@Feature`, `@Story`, `@Severity`, `@Description`)
   - step-level traceability (`@Step`)
@@ -53,31 +56,69 @@ src/test/java/com/ecl/saucedemoselleniumjava
 - Maven installed (or use Maven Wrapper included in this repo)
 
 ## Run Tests
-Use Maven Wrapper (recommended):
+Use Maven:
 
 ```bash
 # Windows
-mvnw.cmd test
+mvn test
 
 # macOS/Linux
-./mvnw test
+mvn test
 ```
 
 Run with a specific browser:
 
 ```bash
-mvnw.cmd test -Dbrowser=chrome
-mvnw.cmd test -Dbrowser=firefox
-mvnw.cmd test -Dbrowser=edge
-mvnw.cmd test -Dbrowser=safari
-mvnw.cmd test -Dbrowser=chromium
+mvn test -Dbrowser=chrome
+mvn test -Dbrowser=firefox
+mvn test -Dbrowser=edge
+mvn test -Dbrowser=safari
+mvn test -Dbrowser=chromium
+```
+
+Default test data/configuration lives in:
+
+```text
+src/test/resources/test-config.yml
+```
+
+You can use placeholder syntax in YAML values:
+`$\{ENV_VAR:default_value}`
+
+Priority used by the framework:
+- Environment variable
+- JVM property (`-D...`)
+- `test-config.yml`
+
+Environment variable names:
+- `BROWSER`
+- `BASE_URL`
+- `USER_STANDARD`
+- `USER_PASSWORD`
+- `CHECKOUT_FIRST_NAME`
+- `CHECKOUT_LAST_NAME`
+- `CHECKOUT_ZIP_CODE`
+
+You can still override any value with JVM properties:
+
+```bash
+mvn test ^
+  -Dbase.url=https://www.saucedemo.com ^
+  -Duser.standard=standard_user ^
+  -Duser.password=secret_sauce ^
+  -Dcheckout.firstName=Elmer ^
+  -Dcheckout.lastName=Coronel ^
+  -Dcheckout.zipCode=00000
 ```
 
 ## Generate Allure Report
 ```bash
-mvnw.cmd clean test
-mvnw.cmd allure:report
-mvnw.cmd allure:serve
+mvn clean test
+allure generate target/allure-results --clean -o target/allure-report
+allure open target/allure-report
+
+# or run report in a temporary local server
+allure serve target/allure-results
 ```
 
 Allure results are generated in:
@@ -85,7 +126,7 @@ Allure results are generated in:
 
 ## Main Test Scenarios
 - `LoginTest.loginWithValidUser`
-  - Validates successful login and inventory page visibility.
+  - Validates successful login and products page visibility.
 
 - `PurchaseFlowTest.e2ePurchaseFlow`
   - Login
