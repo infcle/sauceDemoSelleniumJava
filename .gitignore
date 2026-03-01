@@ -1,0 +1,50 @@
+# Maven build output
+/target/
+
+# Keep Maven Wrapper files versioned
+!.mvn/
+!.mvn/wrapper/
+!.mvn/wrapper/maven-wrapper.jar
+!.mvn/wrapper/maven-wrapper.properties
+
+# Java/IDE build outputs
+/bin/
+/build/
+/out/
+*.class
+*.log
+
+# Test and report artifacts
+/allure-results/
+/allure-report/
+/test-output/
+/surefire-reports/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Eclipse
+.apt_generated/
+.classpath
+.factorypath
+.project
+.settings/
+.springBeans
+.sts4-cache/
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# VS Code
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
