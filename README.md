@@ -53,7 +53,9 @@ src/test/java/com/ecl/saucedemoselleniumjava
 
 ## Prerequisites
 - JDK 17 installed
-- Maven installed (or use Maven Wrapper included in this repo)
+- Maven installed, or use the Maven Wrapper included in this repo (`mvnw` / `mvnw.cmd`)
+
+No Allure CLI installation is required: the Allure Maven plugin generates the reports.
 
 ## Run Tests
 Use Maven:
@@ -112,6 +114,34 @@ mvn test ^
 ```
 
 ## Generate Allure Report
+
+The Allure Maven plugin generates and serves the report, with no extra installation:
+
+```bash
+# generate report after running tests
+mvn clean test allure:report
+
+# or run report in a temporary local server (opens in browser)
+mvn allure:serve
+```
+
+Using the Maven Wrapper (no Maven installation required):
+
+```bash
+# Windows
+.\mvnw.cmd clean test allure:report
+.\mvnw.cmd allure:serve
+
+# macOS/Linux
+./mvnw clean test allure:report
+./mvnw allure:serve
+```
+
+The HTML report is generated in `target/site/allure-maven-plugin/index.html` (`allure:report`) or served in a temporary local server (`allure:serve`).
+
+If you prefer the standalone Allure CLI (optional), install it from
+[Allure releases](https://github.com/allure-framework/allure2/releases) and use:
+
 ```bash
 mvn clean test
 allure generate target/allure-results --clean -o target/allure-report

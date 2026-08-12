@@ -20,6 +20,12 @@
 /test-output/
 /surefire-reports/
 
+# Allure Maven plugin runtime cache (downloaded commandline + jars)
+/.allure/
+
+# Gentle AI skill registry cache
+/.atl/.skill-registry.cache.json
+
 # IntelliJ IDEA
 .idea/
 *.iml
